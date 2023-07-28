@@ -16,23 +16,28 @@ class MainActivity : AppCompatActivity() {
         // On vide le message d'erreur
         findViewById<TextView>(R.id.tvError).text = ""
 
-        var errorMessage = ""
+        // Liste de messages d'erreur. Vide par défaut
+        var errors: ArrayList<String> = ArrayList<String>()
 
         // On vérifie les champs :
         // - email
         val edtLogin = findViewById<EditText>(R.id.edtLogin)
         if (edtLogin.text.isNullOrEmpty() || edtLogin.text.toString().length < 4) {
-            errorMessage = "Email incorrect"
+            errors.add("Email incorrect")
         }
 
         // - password
         val edtPassword = findViewById<EditText>(R.id.edtPassword)
         if (edtPassword.text.isNullOrEmpty() || edtPassword.text.toString().length < 6) {
-            errorMessage = "Password incorrect"
+            errors.add("Password incorrect")
         }
 
-        if (errorMessage.isNotEmpty()) {
-            findViewById<TextView>(R.id.tvError).text = errorMessage
+        if (errors.isNotEmpty()) {
+            var message = ""
+            for (error in errors) {
+                message += "\n" + error
+            }
+            findViewById<TextView>(R.id.tvError).text = message
         }
     }
 }
